@@ -1,31 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# # dependencies
+# /node_modules
+# /.pnp
+# .pnp.js
 
-# testing
-/coverage
+# # testing
+# /coverage
 
-# production
-/build
+# # production
+# /build
 
-# Ignoere Documentation
+# # Ignoere Documentation
 apiDocsDTO-1.json
 apiDocsDitjenNakes-1.json
 apiDocsInfoHumas-1.json
 apiDocsAspak-1.json
 
-# misc
-.DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env.development
+# # misc
+# .DS_Store
+# .env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# .env.development
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
