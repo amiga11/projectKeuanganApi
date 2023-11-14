@@ -133,84 +133,84 @@ export const getTahunan = (req, callback) => {
 
   const sqlSelect =
   'SELECT '+
-  'sirsdpjp.users.rs_id AS kode, '+
-  'sirsdpjp.users.nama AS namaRS, '+
-  'sirsdpjp.rl_satu_titik_dua_detail.tahun AS tahun, '+
+  'sirs.users.rs_id AS kode, '+
+  'sirs.users.nama AS namaRS, '+
+  'sirs.rl_satu_titik_dua_detail.tahun AS tahun, '+
   'ri.jumlah AS jumlahPasienRI, '+
   'lab.jumlah AS jumlahLayananLab, '+
   'ops.jumlah AS jumlahLayananOperasi, '+
   'rad.jumlah AS jumlahLayananRadiologi, '+
   'jkn.jumlah AS jumlahPasienJKN, '+
   'far.jumlah AS jumlahLayananFarmasi, '+
-  'sirsdpjp.rl_satu_titik_dua_detail.bor AS bor, '+
-  'sirsdpjp.rl_satu_titik_dua_detail.toi AS toi, '+
-  'sirsdpjp.rl_satu_titik_dua_detail.los  AS los, '+
-  'sirsdpjp.rl_satu_titik_dua_detail.bto AS bto '
+  'sirs.rl_satu_titik_dua_detail.bor AS bor, '+
+  'sirs.rl_satu_titik_dua_detail.toi AS toi, '+
+  'sirs.rl_satu_titik_dua_detail.los  AS los, '+
+  'sirs.rl_satu_titik_dua_detail.bto AS bto '
 
   const sqlFrom =
-  'FROM sirsdpjp.users '+
-  'LEFT JOIN sirsdpjp.rl_satu_titik_dua_detail ON sirsdpjp.rl_satu_titik_dua_detail.rs_id = sirsdpjp.users.rs_id '+
+  'FROM sirs.users '+
+  'LEFT JOIN sirs.rl_satu_titik_dua_detail ON sirs.rl_satu_titik_dua_detail.rs_id = sirs.users.rs_id '+
   'LEFT JOIN ( '+
   '	SELECT  '+
-  '	sirsdpjp.rl_tiga_titik_satu_detail.rs_id, '+
-  '	sirsdpjp.rl_tiga_titik_satu_detail.tahun, '+
-  '	SUM(sirsdpjp.rl_tiga_titik_satu_detail.jumlah_pasien_awal_tahun + '+
-  '	sirsdpjp.rl_tiga_titik_satu_detail.jumlah_pasien_akhir_tahun) AS jumlah '+
-  '	FROM sirsdpjp.rl_tiga_titik_satu_detail  '+
-  '	GROUP BY sirsdpjp.rl_tiga_titik_satu_detail.rs_id '+
-  ')ri ON ri.rs_id  = sirsdpjp.users.rs_id AND ri.tahun = sirsdpjp.rl_satu_titik_dua_detail.tahun '+
+  '	sirs.rl_tiga_titik_satu_detail.rs_id, '+
+  '	sirs.rl_tiga_titik_satu_detail.tahun, '+
+  '	SUM(sirs.rl_tiga_titik_satu_detail.jumlah_pasien_awal_tahun + '+
+  '	sirs.rl_tiga_titik_satu_detail.jumlah_pasien_akhir_tahun) AS jumlah '+
+  '	FROM sirs.rl_tiga_titik_satu_detail  '+
+  '	GROUP BY sirs.rl_tiga_titik_satu_detail.rs_id '+
+  ')ri ON ri.rs_id  = sirs.users.rs_id AND ri.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
   'LEFT JOIN ( '+
-  '	SELECT sirsdpjp.rl_tiga_titik_delapan_detail.rs_id AS rs_id,  '+
-  '	sirsdpjp.rl_tiga_titik_delapan_detail.tahun, '+
-  '	SUM(sirsdpjp.rl_tiga_titik_delapan_detail.jumlah) AS jumlah '+
-  '	FROM sirsdpjp.rl_tiga_titik_delapan_detail '+
-  '	GROUP BY sirsdpjp.rl_tiga_titik_delapan_detail.rs_id '+
-  ')lab ON lab.rs_id  = sirsdpjp.users.rs_id AND lab.tahun = sirsdpjp.rl_satu_titik_dua_detail.tahun '+
+  '	SELECT sirs.rl_tiga_titik_delapan_detail.rs_id AS rs_id,  '+
+  '	sirs.rl_tiga_titik_delapan_detail.tahun, '+
+  '	SUM(sirs.rl_tiga_titik_delapan_detail.jumlah) AS jumlah '+
+  '	FROM sirs.rl_tiga_titik_delapan_detail '+
+  '	GROUP BY sirs.rl_tiga_titik_delapan_detail.rs_id '+
+  ')lab ON lab.rs_id  = sirs.users.rs_id AND lab.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
   'LEFT JOIN ( '+
-  '	SELECT sirsdpjp.rl_tiga_titik_enam_detail.rs_id AS rs_id,  '+
-  '	sirsdpjp.rl_tiga_titik_enam_detail.tahun, '+
-  '	SUM(sirsdpjp.rl_tiga_titik_enam_detail.total) AS jumlah '+
-  '	FROM sirsdpjp.rl_tiga_titik_enam_detail '+
-  '	GROUP BY sirsdpjp.rl_tiga_titik_enam_detail.rs_id '+
-  ')ops ON ops.rs_id  = sirsdpjp.users.rs_id AND ops.tahun = sirsdpjp.rl_satu_titik_dua_detail.tahun '+
+  '	SELECT sirs.rl_tiga_titik_enam_detail.rs_id AS rs_id,  '+
+  '	sirs.rl_tiga_titik_enam_detail.tahun, '+
+  '	SUM(sirs.rl_tiga_titik_enam_detail.total) AS jumlah '+
+  '	FROM sirs.rl_tiga_titik_enam_detail '+
+  '	GROUP BY sirs.rl_tiga_titik_enam_detail.rs_id '+
+  ')ops ON ops.rs_id  = sirs.users.rs_id AND ops.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
   'LEFT JOIN ( '+
-  '	SELECT sirsdpjp.rl_tiga_titik_tujuh_detail.rs_id AS rs_id,  '+
-  '	sirsdpjp.rl_tiga_titik_tujuh_detail.tahun, '+
-  '	SUM(sirsdpjp.rl_tiga_titik_tujuh_detail.jumlah) AS jumlah '+
-  '	FROM sirsdpjp.rl_tiga_titik_tujuh_detail '+
-  '	GROUP BY sirsdpjp.rl_tiga_titik_tujuh_detail.rs_id '+
-  ')rad ON rad.rs_id  = sirsdpjp.users.rs_id AND rad.tahun = sirsdpjp.rl_satu_titik_dua_detail.tahun '+
+  '	SELECT sirs.rl_tiga_titik_tujuh_detail.rs_id AS rs_id,  '+
+  '	sirs.rl_tiga_titik_tujuh_detail.tahun, '+
+  '	SUM(sirs.rl_tiga_titik_tujuh_detail.jumlah) AS jumlah '+
+  '	FROM sirs.rl_tiga_titik_tujuh_detail '+
+  '	GROUP BY sirs.rl_tiga_titik_tujuh_detail.rs_id '+
+  ')rad ON rad.rs_id  = sirs.users.rs_id AND rad.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
   'LEFT JOIN (  '+
   '	SELECT  '+
-  '	sirsdpjp.rl_tiga_titik_lima_belas_detail.rs_id AS rs_id, '+
-  '	sirsdpjp.rl_tiga_titik_lima_belas_detail.tahun, '+
-  '	sirsdpjp.rl_tiga_titik_lima_belas_detail.pasien_rawat_inap_jpk +  '+
-  '	sirsdpjp.rl_tiga_titik_lima_belas_detail.pasien_rawat_inap_jld + '+
-  '	sirsdpjp.rl_tiga_titik_lima_belas_detail.jumlah_pasien_rawat_jalan AS jumlah '+
-  '	FROM sirsdpjp.rl_tiga_titik_lima_belas_detail  '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.rs_id AS rs_id, '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.tahun, '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.pasien_rawat_inap_jpk +  '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.pasien_rawat_inap_jld + '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.jumlah_pasien_rawat_jalan AS jumlah '+
+  '	FROM sirs.rl_tiga_titik_lima_belas_detail  '+
   '	WHERE cara_pembayaran_id = 3 '+
-  ')jkn ON jkn.rs_id  = sirsdpjp.users.rs_id AND jkn.tahun = sirsdpjp.rl_satu_titik_dua_detail.tahun '+
+  ')jkn ON jkn.rs_id  = sirs.users.rs_id AND jkn.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
   'LEFT JOIN ( '+
   '	SELECT  '+
-  '	sirsdpjp.rl_tiga_titik_tiga_belas_b_detail.rs_id AS rs_id, '+
-  '	sirsdpjp.rl_tiga_titik_tiga_belas_b_detail.tahun, '+
+  '	sirs.rl_tiga_titik_tiga_belas_b_detail.rs_id AS rs_id, '+
+  '	sirs.rl_tiga_titik_tiga_belas_b_detail.tahun, '+
   '	SUM( '+
-  '	sirsdpjp.rl_tiga_titik_tiga_belas_b_detail.rawat_jalan + '+
-  '	sirsdpjp.rl_tiga_titik_tiga_belas_b_detail.igd + '+
-  '	sirsdpjp.rl_tiga_titik_tiga_belas_b_detail.rawat_inap)  AS jumlah '+
-  '	FROM sirsdpjp.rl_tiga_titik_tiga_belas_b_detail  '+
-  '	GROUP BY sirsdpjp.rl_tiga_titik_tiga_belas_b_detail.rs_id '+
-  ')far ON far.rs_id  = sirsdpjp.users.rs_id AND far.tahun = sirsdpjp.rl_satu_titik_dua_detail.tahun '
+  '	sirs.rl_tiga_titik_tiga_belas_b_detail.rawat_jalan + '+
+  '	sirs.rl_tiga_titik_tiga_belas_b_detail.igd + '+
+  '	sirs.rl_tiga_titik_tiga_belas_b_detail.rawat_inap)  AS jumlah '+
+  '	FROM sirs.rl_tiga_titik_tiga_belas_b_detail  '+
+  '	GROUP BY sirs.rl_tiga_titik_tiga_belas_b_detail.rs_id '+
+  ')far ON far.rs_id  = sirs.users.rs_id AND far.tahun = sirs.rl_satu_titik_dua_detail.tahun '
   
 
   
-  const sqlOrder = " ORDER BY sirsdpjp.users.rs_id ";
+  const sqlOrder = " ORDER BY sirs.users.rs_id ";
 
   const sqlLimit = "LIMIT ? ";
 
   const sqlOffSet = "OFFSET ?";
 
-  const sqlWhere = "WHERE  sirsdpjp.users.rs_id NOT IN (999999999, 9999999) AND sirsdpjp.users.jenis_user_id = 4 AND ";
+  const sqlWhere = "WHERE  sirs.users.rs_id NOT IN (999999999, 9999999) AND sirs.users.jenis_user_id = 4 AND ";
 
   const filter = [];
   const sqlFilterValue = [];
@@ -221,17 +221,17 @@ export const getTahunan = (req, callback) => {
   const tahun = req.query.tahun || null;
 
   if (kode != null) {
-    filter.push("sirsdpjp.users.rs_id = ? ");
+    filter.push("sirs.users.rs_id = ? ");
     sqlFilterValue.push(kode);
   }
 
   if (namaRS != null) {
-    filter.push("sirsdpjp.users.nama like ? ");
+    filter.push("sirs.users.nama like ? ");
     sqlFilterValue.push("%".concat(namaRS).concat("%"));
   }
 
   if (tahun != null) {
-    filter.push("sirsdpjp.rl_satu_titik_dua_detail.tahun = ?  ");
+    filter.push("sirs.rl_satu_titik_dua_detail.tahun = ?  ");
     sqlFilterValue.push(tahun);
   }
 
@@ -240,7 +240,7 @@ export const getTahunan = (req, callback) => {
 
   let sqlFilter = "";
   if (filter.length == 0) {
-    sqlFilter = "WHERE sirsdpjp.rl_satu_titik_dua_detail.rs_id IS NOT NULL ";
+    sqlFilter = "WHERE sirs.rl_satu_titik_dua_detail.rs_id IS NOT NULL ";
   } else {
     filter.forEach((value, index) => {
       if (index == 0) {
@@ -268,7 +268,7 @@ export const getTahunan = (req, callback) => {
     })
     .then((res) => {
       const sqlSelectCount =
-        "SELECT count(sirsdpjp.users.rs_id) as total_row_count ";
+        "SELECT count(sirs.users.rs_id) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
       databaseSirs
         .query(sqlCount, {
@@ -309,26 +309,26 @@ export const getBulanan = (req, callback) => {
 
   const sqlSelect =
   'SELECT  ' +
-  'sirsdpjp.users.rs_id AS kode, ' +
-  'sirsdpjp.users.nama AS namaRs , ' +
-  'MONTH(sirsdpjp.rl_lima_titik_dua_detail.tahun) AS bulan, ' +
-  'YEAR(sirsdpjp.rl_lima_titik_dua_detail.tahun) AS tahun, ' +
-  'SUM(sirsdpjp.rl_lima_titik_dua_detail.jumlah) AS jumlahPasienRJ '
+  'sirs.users.rs_id AS kode, ' +
+  'sirs.users.nama AS namaRs , ' +
+  'MONTH(sirs.rl_lima_titik_dua_detail.tahun) AS bulan, ' +
+  'YEAR(sirs.rl_lima_titik_dua_detail.tahun) AS tahun, ' +
+  'SUM(sirs.rl_lima_titik_dua_detail.jumlah) AS jumlahPasienRJ '
 
   const sqlFrom =
-  'FROM sirsdpjp.users ' +
-  'LEFT JOIN sirsdpjp.rl_lima_titik_dua_detail ON sirsdpjp.users.rs_id = sirsdpjp.rl_lima_titik_dua_detail.rs_id ' 
+  'FROM sirs.users ' +
+  'LEFT JOIN sirs.rl_lima_titik_dua_detail ON sirs.users.rs_id = sirs.rl_lima_titik_dua_detail.rs_id ' 
   
 
-  const sqlOrder = " ORDER BY sirsdpjp.users.rs_id, tahun, bulan asc ";
+  const sqlOrder = " ORDER BY sirs.users.rs_id, tahun, bulan asc ";
 
-  const sqlGroup = "GROUP BY sirsdpjp.rl_lima_titik_dua_detail.rs_id, MONTH(sirsdpjp.rl_lima_titik_dua_detail.tahun), YEAR(sirsdpjp.rl_lima_titik_dua_detail.tahun) "
+  const sqlGroup = "GROUP BY sirs.rl_lima_titik_dua_detail.rs_id, MONTH(sirs.rl_lima_titik_dua_detail.tahun), YEAR(sirs.rl_lima_titik_dua_detail.tahun) "
 
   const sqlLimit = "LIMIT ? ";
 
   const sqlOffSet = "OFFSET ?";
 
-  const sqlWhere = "WHERE  sirsdpjp.users.rs_id NOT IN (999999999, 9999999) AND sirsdpjp.users.jenis_user_id = 4 AND ";
+  const sqlWhere = "WHERE  sirs.users.rs_id NOT IN (999999999, 9999999) AND sirs.users.jenis_user_id = 4 AND ";
 
   const filter = [];
   const sqlFilterValue = [];
@@ -339,22 +339,22 @@ export const getBulanan = (req, callback) => {
   const tahun = req.query.tahun || null;
 
   if (kode != null) {
-    filter.push("sirsdpjp.users.rs_id = ? ");
+    filter.push("sirs.users.rs_id = ? ");
     sqlFilterValue.push(kode);
   }
 
   if (namaRS != null) {
-    filter.push("sirsdpjp.users.nama like ? ");
+    filter.push("sirs.users.nama like ? ");
     sqlFilterValue.push("%".concat(namaRS).concat("%"));
   }
 
   if (bulan != null) {
-    filter.push("MONTH(sirsdpjp.rl_lima_titik_dua_detail.tahun) = ?  ");
+    filter.push("MONTH(sirs.rl_lima_titik_dua_detail.tahun) = ?  ");
     sqlFilterValue.push(bulan);
   }
 
   if (tahun != null) {
-    filter.push("YEAR(sirsdpjp.rl_lima_titik_dua_detail.tahun) = ?  ");
+    filter.push("YEAR(sirs.rl_lima_titik_dua_detail.tahun) = ?  ");
     sqlFilterValue.push(tahun);
   }
 
@@ -363,7 +363,7 @@ export const getBulanan = (req, callback) => {
 
   let sqlFilter = "";
   if (filter.length == 0) {
-    sqlFilter = "WHERE sirsdpjp.rl_satu_titik_dua_detail.rs_id IS NOT NULL ";
+    sqlFilter = "WHERE sirs.rl_satu_titik_dua_detail.rs_id IS NOT NULL ";
   } else {
     filter.forEach((value, index) => {
       if (index == 0) {
@@ -391,7 +391,7 @@ export const getBulanan = (req, callback) => {
     })
     .then((res) => {
       const sqlSelectCount =
-        "SELECT count(sirsdpjp.users.rs_id) as total_row_count ";
+        "SELECT count(sirs.users.rs_id) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
       databaseSirs
         .query(sqlCount, {
