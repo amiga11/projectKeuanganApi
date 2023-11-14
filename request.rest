@@ -16,24 +16,46 @@ Content-Type: application/json
     "password": "p5fuNGds"
 }
 
-### INM RS
-GET http://localhost:8000/layanan/kkt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
+### INM KKT
+GET http://localhost:8000/layanan/kkt-rs?tahun=2022&bulan=10&page=1&limit=10
 
-### INM RS
+### INM KPAPD
 GET http://localhost:8000/layanan/kpapd-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
 
-### INM RS
+### INM KWVT
 GET http://localhost:8000/layanan/kwvt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
 
-### INM RS
-GET http://localhost:8000/layanan/kpfnt-rs?kode=1102016&tahun=2022&page=1&limit=10
+### INM KPFNT
+GET http://localhost:8000/layanan/kpfnt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
 
-### INM RS
-GET http://localhost:8000/layanan/kwt-rs?kode=1102016&tahun=2022&page=1&limit=10
+### INM KWT
+GET http://localhost:8000/layanan/kwt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
 
 ### sirs tahunan
 GET http://localhost:8000/layanan/sirs-dua?kode=1102016&tahun=2022&page=1&limit=10
 
-### sirs bulanan
+### sirs bulanan rawat jalan
 GET http://localhost:8000/layanan/sirs-satu?kode=1102016&bulan=5&tahun=2023&page=1&limit=10
 
+
+### 
+GET http://192.168.50.86:8000/layanan/sirs-satu?kode=1102016&bulan=5&tahun=2023&page=1&limit=10
+
+
+### Login
+POST http://202.70.136.86/layanan/login
+Content-Type: application/json
+
+{
+    "userName": "kotakelektronik@gmail.com",
+    "password": "12345"
+}
+
+### Login
+POST http://192.168.50.86/layanan/login
+Content-Type: application/json
+
+{
+    "userName": "kotakelektronik@gmail.com",
+    "password": "12345"
+}

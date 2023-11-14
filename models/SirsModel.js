@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import { databaseUser } from "../config/Database.js";
+import { databaseSirs } from "../config/Database.js";
 
 // export const get = (req, callback) => {
 //     const page = parseInt(req.query.page) || 1
@@ -91,13 +91,13 @@ import { databaseUser } from "../config/Database.js";
 //     // console.log("haloo ")
 //     // console.log(sqlFilterValue)
 
-//     databaseUser.query(sql, {
+//     databaseSirs.query(sql, {
 //         type: QueryTypes.SELECT,
 //         replacements: sqlFilterValue
 //     }).then((res) => {
 //         const sqlSelectCount = 'SELECT count(simar.data_rs_new.Propinsi) as total_row_count '
 //         const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter)
-//         databaseUser.query(sqlCount, {
+//         databaseSirs.query(sqlCount, {
 //             type: QueryTypes.SELECT,
 //             replacements: sqlFilterValue
 //         })
@@ -261,7 +261,7 @@ export const getTahunan = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSirs
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -270,7 +270,7 @@ export const getTahunan = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(sirsdpjp.users.rs_id) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSirs
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,
@@ -313,7 +313,7 @@ export const getBulanan = (req, callback) => {
   'sirsdpjp.users.nama AS namaRs , ' +
   'MONTH(sirsdpjp.rl_lima_titik_dua_detail.tahun) AS bulan, ' +
   'YEAR(sirsdpjp.rl_lima_titik_dua_detail.tahun) AS tahun, ' +
-  'SUM(sirsdpjp.rl_lima_titik_dua_detail.jumlah) AS jumlah '
+  'SUM(sirsdpjp.rl_lima_titik_dua_detail.jumlah) AS jumlahPasienRJ '
 
   const sqlFrom =
   'FROM sirsdpjp.users ' +
@@ -384,7 +384,7 @@ export const getBulanan = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSirs
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -393,7 +393,7 @@ export const getBulanan = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(sirsdpjp.users.rs_id) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSirs
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,
