@@ -20,7 +20,7 @@ app.use(cors({ credentials: true, origin: [process.env.ORIGIN] }))
 app.use(cookieParser())
 app.use(express.json())
 app.use(apiRouter)
-app.use(docRouter)
+//app.use(docRouter)
 
 app.listen(8000, () => {
     console.log("server running at port 8000")

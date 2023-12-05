@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import { databaseUser } from "../config/Database.js";
+import { datab, databaseSimaraseSimar } from "../config/Database.js";
 
 // export const get = (req, callback) => {
 //     const page = parseInt(req.query.page) || 1
@@ -91,13 +91,13 @@ import { databaseUser } from "../config/Database.js";
 //     // console.log("haloo ")
 //     // console.log(sqlFilterValue)
 
-//     databaseUser.query(sql, {
+//     databaseSimar.query(sql, {
 //         type: QueryTypes.SELECT,
 //         replacements: sqlFilterValue
 //     }).then((res) => {
 //         const sqlSelectCount = 'SELECT count(simar.data_rs_new.Propinsi) as total_row_count '
 //         const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter)
-//         databaseUser.query(sqlCount, {
+//         databaseSimar.query(sqlCount, {
 //             type: QueryTypes.SELECT,
 //             replacements: sqlFilterValue
 //         })
@@ -205,7 +205,7 @@ export const getKkt = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSimar
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -214,7 +214,7 @@ export const getKkt = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(simar.data_rs_new.Propinsi) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSimar
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,
@@ -325,7 +325,7 @@ export const getKpapd = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSimar
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -334,7 +334,7 @@ export const getKpapd = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(simar.data_rs_new.Propinsi) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSimar
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,
@@ -443,7 +443,7 @@ export const getKwv = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSimar
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -452,7 +452,7 @@ export const getKwv = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(simar.data_rs_new.Propinsi) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSimar
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,
@@ -561,7 +561,7 @@ export const getKpfn = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSimar
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -570,7 +570,7 @@ export const getKpfn = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(simar.data_rs_new.Propinsi) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSimar
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,
@@ -680,7 +680,7 @@ export const getKwt = (req, callback) => {
   // console.log("haloo ")
   // console.log(sqlFilterValue)
 
-  databaseUser
+  databaseSimar
     .query(sql, {
       type: QueryTypes.SELECT,
       replacements: sqlFilterValue,
@@ -689,7 +689,7 @@ export const getKwt = (req, callback) => {
       const sqlSelectCount =
         "SELECT count(simar.data_rs_new.Propinsi) as total_row_count ";
       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
-      databaseUser
+      databaseSimar
         .query(sqlCount, {
           type: QueryTypes.SELECT,
           replacements: sqlFilterValue,

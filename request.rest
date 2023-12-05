@@ -16,26 +16,38 @@ Content-Type: application/json
     "password": "p5fuNGds"
 }
 
+
+### sirs persalinan
+GET http://localhost:8000/layanan/persalinan?id=1102016&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTc2NDUwOCwiZXhwIjoxNzAxNzY1NDA4fQ.Cgp2-oxlABgh0XsZ1J6W4nuPagraEYW0L1EBqFfC-1I
+
 ### INM KKT
 GET http://localhost:8000/layanan/kkt-rs?tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTc2NDkyMCwiZXhwIjoxNzAxNzY1ODIwfQ.Yla2XEcBIO8ROUX2VxWv2FEjAZQ-W5SpvEqF1DoSWeM
 
 ### INM KPAPD
 GET http://localhost:8000/layanan/kpapd-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTc2NTAxNSwiZXhwIjoxNzAxNzY1OTE1fQ.DzLW3yxPl2jZBQRsfQT1k7fzUrMNafZ9E8wqVs4wolE
 
 ### INM KWVT
 GET http://localhost:8000/layanan/kwvt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTc2MzU1OSwiZXhwIjoxNzAxNzY0NDU5fQ.uoWY5yqSk4WWs4mmCWoo2x29QHGnVurlhdjzAiRlTxg
 
 ### INM KPFNT
 GET http://localhost:8000/layanan/kpfnt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAyODk4NSwiZXhwIjoxNzAwMDI5ODg1fQ.QUHqYLpdC9YAT9HWdXVHfTunp1wpovXUtD4F9uhrNY4
 
 ### INM KWT
 GET http://localhost:8000/layanan/kwt-rs?kode=1102016&tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAyODk4NSwiZXhwIjoxNzAwMDI5ODg1fQ.QUHqYLpdC9YAT9HWdXVHfTunp1wpovXUtD4F9uhrNY4
 
 ### sirs tahunan
 GET http://localhost:8000/layanan/sirs-dua?kode=1102016&tahun=2022&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAyODk4NSwiZXhwIjoxNzAwMDI5ODg1fQ.QUHqYLpdC9YAT9HWdXVHfTunp1wpovXUtD4F9uhrNY4
 
 ### sirs bulanan rawat jalan
 GET http://localhost:8000/layanan/sirs-satu?kode=1102016&bulan=5&tahun=2023&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAyODk4NSwiZXhwIjoxNzAwMDI5ODg1fQ.QUHqYLpdC9YAT9HWdXVHfTunp1wpovXUtD4F9uhrNY4
 
 
 ### 
@@ -52,10 +64,85 @@ Content-Type: application/json
 }
 
 ### Login
-POST http://192.168.50.86/layanan/login
+POST http://192.168.49.40:4000/layanan/login
 Content-Type: application/json
 
 {
     "userName": "kotakelektronik@gmail.com",
     "password": "12345"
 }
+
+
+### INM KKT
+GET http://192.168.49.40:4000/layanan/kkt-rs?tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAyODk4NSwiZXhwIjoxNzAwMDI5ODg1fQ.QUHqYLpdC9YAT9HWdXVHfTunp1wpovXUtD4F9uhrNY4
+
+### sirs tahunan
+GET http://192.168.49.40:4000/layanan/sirs-dua?tahun=2022&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAyODk4NSwiZXhwIjoxNzAwMDI5ODg1fQ.QUHqYLpdC9YAT9HWdXVHfTunp1wpovXUtD4F9uhrNY4
+
+### sirs bulanan rawat jalan
+GET http://192.168.49.40:4000/layanan/sirs-satu?kode=1102016&bulan=5&tahun=2023&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMDAzMDI0OCwiZXhwIjoxNzAwMDMxMTQ4fQ.Y52nw_QBnQkzWDBgPrHTEwGu8ev03_4Y3VCYtvaAWBQ
+
+
+### Insert New User
+POST http://192.168.49.40:4000/layanan/users
+Content-Type: application/json
+
+{
+    "user_name": "tes@gmail.com",
+    "password": "zsdAwinsfv"
+}
+
+### Login
+POST https://api-yankes.kemkes.go.id/layanan/login
+Content-Type: application/json
+
+{
+    "userName": "yuska.yudistira@dto.kemkes.go.id",
+    "password": "qPfhwdagUS"
+}
+
+
+### Login
+POST http://api-yankes.kemkes.go.id/layanan/login
+Content-Type: application/json
+
+{
+    "userName": "basisdata@pusdatin.kemkes.go.id",
+    "password": "zsdAwinsfv"
+}
+
+### Login
+POST http://192.168.49.40:4000/layanan/login
+Content-Type: application/json
+
+{
+    "userName": "dian.faradiba@dto.kemkes.go.id",
+    "password": "aS192nsjGY"
+}
+
+### Login
+POST https://api-yankes.kemkes.go.id/layanan/login
+Content-Type: application/json
+
+{
+    "userName": "basisdata@pusdatin.kemkes.go.id",
+    "password": "zsdAwinsfv"
+}
+
+### sirs tahunan
+GET https://api-yankes.kemkes.go.id/layanan/sirs-dua?tahun=2022&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lIjoiYmFzaXNkYXRhQHB1c2RhdGluLmtlbWtlcy5nby5pZCIsImlhdCI6MTcwMDAzNDk0NiwiZXhwIjoxNzAwMDM1ODQ2fQ.bBFP0-Apo5t2wJtjebej9PVHnaP4g-JVBIsQ_nnTh_w
+
+### sirs bulanan jumlah pasien rawat jalan
+GET https://api-yankes.kemkes.go.id/layanan/sirs-satu?tahun=2022&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lIjoiYmFzaXNkYXRhQHB1c2RhdGluLmtlbWtlcy5nby5pZCIsImlhdCI6MTcwMDExOTU0MiwiZXhwIjoxNzAwMTIwNDQyfQ.JO8ONFz26LOfaLBV2n7e63xLAoKJRFJnjNlbHAwLtNU
+
+### sirs bulanan kunjhungan rawat jalan
+GET https://api-yankes.kemkes.go.id/layanan/sirs-tiga?tahun=2022&page=1&limit=100
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lIjoiYmFzaXNkYXRhQHB1c2RhdGluLmtlbWtlcy5nby5pZCIsImlhdCI6MTcwMDEyNDU0NywiZXhwIjoxNzAwMTI1NDQ3fQ.t6EfQFjm68tm4j03k05VyRcp2CSnY3YTtdPBepirLMo
+
+
+

@@ -141,6 +141,7 @@ export const getTahunan = (req, callback) => {
   'ops.jumlah AS jumlahLayananOperasi, '+
   'rad.jumlah AS jumlahLayananRadiologi, '+
   'jkn.jumlah AS jumlahPasienJKN, '+
+  'nonjkn.jumlah AS jumlahPasienNonJKN, '+
   'far.jumlah AS jumlahLayananFarmasi, '+
   'sirs.rl_satu_titik_dua_detail.bor AS bor, '+
   'sirs.rl_satu_titik_dua_detail.toi AS toi, '+
@@ -190,6 +191,17 @@ export const getTahunan = (req, callback) => {
   '	FROM sirs.rl_tiga_titik_lima_belas_detail  '+
   '	WHERE cara_pembayaran_id = 3 '+
   ')jkn ON jkn.rs_id  = sirs.users.rs_id AND jkn.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
+  'LEFT JOIN (  '+
+  '	SELECT  '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.rs_id AS rs_id, '+
+  '	sirs.rl_tiga_titik_lima_belas_detail.tahun, '+
+  ' SUM(  sirs.rl_tiga_titik_lima_belas_detail.pasien_rawat_inap_jpk + '  +
+  ' sirs.rl_tiga_titik_lima_belas_detail.pasien_rawat_inap_jld + ' +
+  ' sirs.rl_tiga_titik_lima_belas_detail.jumlah_pasien_rawat_jalan) AS jumlah ' +
+  '	FROM sirs.rl_tiga_titik_lima_belas_detail  '+
+  '	WHERE cara_pembayaran_id != 3 '+
+  '	GROUP BY sirs.rl_tiga_titik_lima_belas_detail.rs_id '+
+  ')nonjkn ON nonjkn.rs_id  = sirs.users.rs_id AND nonjkn.tahun = sirs.rl_satu_titik_dua_detail.tahun '+
   'LEFT JOIN ( '+
   '	SELECT  '+
   '	sirs.rl_tiga_titik_tiga_belas_b_detail.rs_id AS rs_id, '+
@@ -201,8 +213,6 @@ export const getTahunan = (req, callback) => {
   '	FROM sirs.rl_tiga_titik_tiga_belas_b_detail  '+
   '	GROUP BY sirs.rl_tiga_titik_tiga_belas_b_detail.rs_id '+
   ')far ON far.rs_id  = sirs.users.rs_id AND far.tahun = sirs.rl_satu_titik_dua_detail.tahun '
-  
-
   
   const sqlOrder = " ORDER BY sirs.users.rs_id ";
 
@@ -299,6 +309,130 @@ export const getTahunan = (req, callback) => {
 };
 
 
+// export const getBulanan = (req, callback) => {
+//   const page = parseInt(req.query.page) || 1;
+//   const limit =
+//     parseInt(req.query.limit) > 100 ? 100 : parseInt(req.query.limit) || 100;
+
+//   const startIndex = (page - 1) * limit;
+//   const endIndex = limit;
+
+//   const sqlSelect =
+//   'SELECT  ' +
+//   'sirs.users.rs_id AS kode, ' +
+//   'sirs.users.nama AS namaRs , ' +
+//   'MONTH(sirs.rl_lima_titik_dua_detail.tahun) AS bulan, ' +
+//   'YEAR(sirs.rl_lima_titik_dua_detail.tahun) AS tahun, ' +
+//   'SUM(sirs.rl_lima_titik_dua_detail.jumlah) AS jumlahPasienRJ '
+
+//   const sqlFrom =
+//   'FROM sirs.users ' +
+//   'LEFT JOIN sirs.rl_lima_titik_dua_detail ON sirs.users.rs_id = sirs.rl_lima_titik_dua_detail.rs_id ' 
+  
+
+//   const sqlOrder = " ORDER BY sirs.users.rs_id, tahun, bulan asc ";
+
+//   const sqlGroup = "GROUP BY sirs.rl_lima_titik_dua_detail.rs_id, MONTH(sirs.rl_lima_titik_dua_detail.tahun), YEAR(sirs.rl_lima_titik_dua_detail.tahun) "
+
+//   const sqlLimit = "LIMIT ? ";
+
+//   const sqlOffSet = "OFFSET ?";
+
+//   const sqlWhere = "WHERE  sirs.users.rs_id NOT IN (999999999, 9999999) AND sirs.users.jenis_user_id = 4 AND ";
+
+//   const filter = [];
+//   const sqlFilterValue = [];
+
+//   const kode = req.query.kode || null;
+//   const namaRS = req.query.namaRS || null;
+//   const bulan = req.query.bulan || null;
+//   const tahun = req.query.tahun || null;
+
+//   if (kode != null) {
+//     filter.push("sirs.users.rs_id = ? ");
+//     sqlFilterValue.push(kode);
+//   }
+
+//   if (namaRS != null) {
+//     filter.push("sirs.users.nama like ? ");
+//     sqlFilterValue.push("%".concat(namaRS).concat("%"));
+//   }
+
+//   if (bulan != null) {
+//     filter.push("MONTH(sirs.rl_lima_titik_dua_detail.tahun) = ?  ");
+//     sqlFilterValue.push(bulan);
+//   }
+
+//   if (tahun != null) {
+//     filter.push("YEAR(sirs.rl_lima_titik_dua_detail.tahun) = ?  ");
+//     sqlFilterValue.push(tahun);
+//   }
+
+//   sqlFilterValue.push(endIndex);
+//   sqlFilterValue.push(startIndex);
+
+//   let sqlFilter = "";
+//   if (filter.length == 0) {
+//     sqlFilter = "WHERE sirs.rl_satu_titik_dua_detail.rs_id IS NOT NULL ";
+//   } else {
+//     filter.forEach((value, index) => {
+//       if (index == 0) {
+//         sqlFilter = sqlWhere.concat(value);
+//       } else if (index > 0) {
+//         sqlFilter = sqlFilter.concat(" and ").concat(value);
+//       }
+//     });
+//   }
+
+//   const sql = sqlSelect
+//     .concat(sqlFrom)
+//     .concat(sqlFilter).concat(sqlGroup)
+//     .concat(sqlOrder)
+//     .concat(sqlLimit)
+//     .concat(sqlOffSet);
+
+//   // console.log("haloo ")
+//   // console.log(sqlFilterValue)
+
+//   databaseSirs
+//     .query(sql, {
+//       type: QueryTypes.SELECT,
+//       replacements: sqlFilterValue,
+//     })
+//     .then((res) => {
+//       const sqlSelectCount =
+//         "SELECT count(sirs.users.rs_id) as total_row_count ";
+//       const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
+//       databaseSirs
+//         .query(sqlCount, {
+//           type: QueryTypes.SELECT,
+//           replacements: sqlFilterValue,
+//         })
+//         .then(
+//           (resCount) => {
+//             const data = {
+//               totalRowCount: resCount[0].total_row_count,
+//               page: page,
+//               limit: limit,
+//               data: res,
+//             };
+//             callback(null, data);
+//           },
+//           (error) => {
+//             throw error;
+//           }
+//         )
+//         .catch((error) => {
+//           throw error;
+//         });
+//     })
+//     .catch((error) => {
+//       callback(error, null);
+//     });
+// };
+
+
+
 export const getBulanan = (req, callback) => {
   const page = parseInt(req.query.page) || 1;
   const limit =
@@ -308,21 +442,145 @@ export const getBulanan = (req, callback) => {
   const endIndex = limit;
 
   const sqlSelect =
-  'SELECT  ' +
+  'SELECT ' +
   'sirs.users.rs_id AS kode, ' +
-  'sirs.users.nama AS namaRs , ' +
-  'MONTH(sirs.rl_lima_titik_dua_detail.tahun) AS bulan, ' +
-  'YEAR(sirs.rl_lima_titik_dua_detail.tahun) AS tahun, ' +
-  'SUM(sirs.rl_lima_titik_dua_detail.jumlah) AS jumlahPasienRJ '
+  'sirs.users.nama AS namaRs, ' +
+  'MONTH(sirs.rl_lima_titik_satu_detail.tahun) AS bulan, ' +
+  'YEAR(sirs.rl_lima_titik_satu_detail.tahun) AS tahun, ' +
+  'SUM(sirs.rl_lima_titik_satu_detail.jumlah) AS jumlahPasienRJ ' 
 
   const sqlFrom =
-  'FROM sirs.users ' +
-  'LEFT JOIN sirs.rl_lima_titik_dua_detail ON sirs.users.rs_id = sirs.rl_lima_titik_dua_detail.rs_id ' 
+  'FROM ' +
+  'sirs.users ' +
+  'LEFT JOIN sirs.rl_lima_titik_satu_detail ON sirs.users.rs_id = sirs.rl_lima_titik_satu_detail.rs_id '
   
+  const sqlOrder = " ORDER BY sirs.users.rs_id ";
 
-  const sqlOrder = " ORDER BY sirs.users.rs_id, tahun, bulan asc ";
+  const sqlLimit = "LIMIT ? ";
 
-  const sqlGroup = "GROUP BY sirs.rl_lima_titik_dua_detail.rs_id, MONTH(sirs.rl_lima_titik_dua_detail.tahun), YEAR(sirs.rl_lima_titik_dua_detail.tahun) "
+  const sqlOffSet = "OFFSET ?";
+
+  const sqlGroup = "	GROUP BY sirs.rl_lima_titik_satu_detail.rs_id, MONTH(sirs.rl_lima_titik_satu_detail.tahun), YEAR(sirs.rl_lima_titik_satu_detail.tahun)"
+
+  const sqlWhere = "WHERE  sirs.users.rs_id NOT IN (999999999, 9999999) AND sirs.users.jenis_user_id = 4 AND ";
+
+  const filter = [];
+  const sqlFilterValue = [];
+
+  const kode = req.query.kode || null;
+  const namaRS = req.query.namaRS || null;
+  const bulan = req.query.bulan || null;
+  const tahun = req.query.tahun || null;
+
+  if (kode != null) {
+    filter.push("sirs.users.rs_id = ? ");
+    sqlFilterValue.push(kode);
+  }
+
+  if (namaRS != null) {
+    filter.push("sirs.users.nama like ? ");
+    sqlFilterValue.push("%".concat(namaRS).concat("%"));
+  }
+
+  if (bulan != null) {
+    filter.push("MONTH(sirs.rl_lima_titik_satu_detail.tahun) = ?  ");
+    sqlFilterValue.push(bulan);
+  }
+
+  if (tahun != null) {
+    filter.push("YEAR(sirs.rl_lima_titik_satu_detail.tahun) = ?  ");
+    sqlFilterValue.push(tahun);
+  }
+
+  sqlFilterValue.push(endIndex);
+  sqlFilterValue.push(startIndex);
+
+  let sqlFilter = "";
+  if (filter.length == 0) {
+    sqlFilter = "WHERE sirs.users.rs_id IS NOT NULL ";
+  } else {
+    filter.forEach((value, index) => {
+      if (index == 0) {
+        sqlFilter = sqlWhere.concat(value);
+      } else if (index > 0) {
+        sqlFilter = sqlFilter.concat(" and ").concat(value);
+      }
+    });
+  }
+
+  const sql = sqlSelect
+    .concat(sqlFrom)
+    .concat(sqlFilter).concat(sqlGroup)
+    .concat(sqlOrder)
+    .concat(sqlLimit)
+    .concat(sqlOffSet);
+
+  // console.log("haloo ")
+  // console.log(sqlFilterValue)
+
+  databaseSirs
+    .query(sql, {
+      type: QueryTypes.SELECT,
+      replacements: sqlFilterValue,
+    })
+    .then((res) => {
+      const sqlSelectCount =
+        "SELECT count(sirs.users.rs_id) as total_row_count ";
+      const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
+      databaseSirs
+        .query(sqlCount, {
+          type: QueryTypes.SELECT,
+          replacements: sqlFilterValue,
+        })
+        .then(
+          (resCount) => {
+            const data = {
+              totalRowCount: resCount[0].total_row_count,
+              page: page,
+              limit: limit,
+              data: res,
+            };
+            callback(null, data);
+          },
+          (error) => {
+            throw error;
+          }
+        )
+        .catch((error) => {
+          throw error;
+        });
+    })
+    .catch((error) => {
+      callback(error, null);
+    });
+};
+
+
+
+export const getKunjungan = (req, callback) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit =
+    parseInt(req.query.limit) > 100 ? 100 : parseInt(req.query.limit) || 100;
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = limit;
+
+  const sqlSelect =
+  'SELECT ' +
+  'sirs.users.rs_id AS kode, ' +
+  'sirs.users.nama AS namaRs, ' +
+  'MONTH(sirs.rl_lima_titik_dua_detail.tahun) AS bulan, ' +
+  'YEAR(sirs.rl_lima_titik_dua_detail.tahun) AS tahun, ' +
+  'sirs.jenis_kegiatan.nama AS jenisKegiatan, ' +
+  'sirs.rl_lima_titik_dua_detail.jumlah AS jumlahKunjunganRJ ' 
+
+  const sqlFrom =
+  'FROM ' +
+  'sirs.users ' +
+  'LEFT JOIN sirs.rl_lima_titik_dua_detail ON sirs.users.rs_id = sirs.rl_lima_titik_dua_detail.rs_id ' +
+  'LEFT JOIN sirs.jenis_kegiatan ON sirs.jenis_kegiatan.id = sirs.rl_lima_titik_dua_detail.jenis_kegiatan_id '
+  
+  const sqlOrder = " ORDER BY sirs.users.rs_id ";
 
   const sqlLimit = "LIMIT ? ";
 
@@ -363,7 +621,7 @@ export const getBulanan = (req, callback) => {
 
   let sqlFilter = "";
   if (filter.length == 0) {
-    sqlFilter = "WHERE sirs.rl_satu_titik_dua_detail.rs_id IS NOT NULL ";
+    sqlFilter = "WHERE sirs.users.rs_id IS NOT NULL ";
   } else {
     filter.forEach((value, index) => {
       if (index == 0) {
@@ -376,7 +634,7 @@ export const getBulanan = (req, callback) => {
 
   const sql = sqlSelect
     .concat(sqlFrom)
-    .concat(sqlFilter).concat(sqlGroup)
+    .concat(sqlFilter)
     .concat(sqlOrder)
     .concat(sqlLimit)
     .concat(sqlOffSet);
