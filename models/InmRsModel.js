@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import { databaseSimar, databaseSimar } from "../config/Database.js";
+import { databaseSimar } from "../config/Database.js";
 
 // export const get = (req, callback) => {
 //     const page = parseInt(req.query.page) || 1
