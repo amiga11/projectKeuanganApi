@@ -4,8 +4,8 @@ import { getKebidananPersalinan } from '../models/SirsDWHModel.js'
 
 export const getSirsPersalinan= (req, res) => {
     const schema = Joi.object({
-        id: Joi.string().allow(''),
-        namaRS: Joi.string().allow('').allow(null),
+        kode: Joi.string().allow(''),
+        namaRs: Joi.string().allow('').allow(null),
         provinsi: Joi.string().allow('').allow(null),
         kabkot: Joi.string().allow('').allow(null),
         page: Joi.number(),

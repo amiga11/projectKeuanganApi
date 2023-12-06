@@ -19,7 +19,11 @@ Content-Type: application/json
 
 ### sirs persalinan
 GET http://localhost:8000/layanan/persalinan?id=1102016&page=1&limit=10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTc2NDUwOCwiZXhwIjoxNzAxNzY1NDA4fQ.Cgp2-oxlABgh0XsZ1J6W4nuPagraEYW0L1EBqFfC-1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTgyMjM5MCwiZXhwIjoxNzAxODIzMjkwfQ.x87crzOOlu4oso-fpXZO_wlcqad_-PIWml60-4jrBDM
+
+### SC Emergency
+GET http://localhost:8000/layanan/sc-emergency?tahun=2022&bulan=10&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcl9uYW1lIjoia290YWtlbGVrdHJvbmlrQGdtYWlsLmNvbSIsImlhdCI6MTcwMTc2NDkyMCwiZXhwIjoxNzAxNzY1ODIwfQ.Yla2XEcBIO8ROUX2VxWv2FEjAZQ-W5SpvEqF1DoSWeM
 
 ### INM KKT
 GET http://localhost:8000/layanan/kkt-rs?tahun=2022&bulan=10&page=1&limit=10

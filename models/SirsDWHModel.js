@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import { databaseSirsDwh, databaseSirsDwh } from "../config/Database.js";
+import { databaseSirsDwh, databaseUser } from "../config/Database.js";
 
 export const getKebidananPersalinan = (req, callback) => {
   const page = parseInt(req.query.page) || 1;
@@ -31,19 +31,19 @@ export const getKebidananPersalinan = (req, callback) => {
   const filter = [];
   const sqlFilterValue = [];
 
-  const id = req.query.id || null;
-  const namaRS = req.query.namaRS || null;
+  const kode = req.query.kode || null;
+  const namaRs = req.query.namaRs || null;
   const provinsi = req.query.provinsi || null;
   const kabkot = req.query.kabkot || null;
 
-  if (id != null) {
+  if (kode != null) {
     filter.push("sirs_clean.RL_34.koders = ? ");
-    sqlFilterValue.push(id);
+    sqlFilterValue.push(kode);
   }
 
-  if (namaRS != null) {
+  if (namaRs != null) {
     filter.push("sirs_clean.RL_34.namars like ? ");
-    sqlFilterValue.push("%".concat(namaRS).concat("%"));
+    sqlFilterValue.push("%".concat(namaRs).concat("%"));
   }
 
   if (provinsi != null) {

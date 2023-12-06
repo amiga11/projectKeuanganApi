@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import { datab, databaseSimaraseSimar } from "../config/Database.js";
+import { databaseSimar, databaseSimar } from "../config/Database.js";
 
 // export const get = (req, callback) => {
 //     const page = parseInt(req.query.page) || 1
@@ -660,6 +660,126 @@ export const getKwt = (req, callback) => {
   let sqlFilter = "";
   if (filter.length == 0) {
     sqlFilter = "WHERE simar.data_rs_new.Propinsi IS NOT NULL ";
+  } else {
+    filter.forEach((value, index) => {
+      if (index == 0) {
+        sqlFilter = sqlWhere.concat(value);
+      } else if (index > 0) {
+        sqlFilter = sqlFilter.concat(" and ").concat(value);
+      }
+    });
+  }
+
+  const sql = sqlSelect
+    .concat(sqlFrom)
+    .concat(sqlFilter)
+    .concat(sqlOrder)
+    .concat(sqlLimit)
+    .concat(sqlOffSet);
+
+  // console.log("haloo ")
+  // console.log(sqlFilterValue)
+
+  databaseSimar
+    .query(sql, {
+      type: QueryTypes.SELECT,
+      replacements: sqlFilterValue,
+    })
+    .then((res) => {
+      const sqlSelectCount =
+        "SELECT count(simar.data_rs_new.Propinsi) as total_row_count ";
+      const sqlCount = sqlSelectCount.concat(sqlFrom).concat(sqlFilter);
+      databaseSimar
+        .query(sqlCount, {
+          type: QueryTypes.SELECT,
+          replacements: sqlFilterValue,
+        })
+        .then(
+          (resCount) => {
+            const data = {
+              totalRowCount: resCount[0].total_row_count,
+              page: page,
+              limit: limit,
+              data: res,
+            };
+            callback(null, data);
+          },
+          (error) => {
+            throw error;
+          }
+        )
+        .catch((error) => {
+          throw error;
+        });
+    })
+    .catch((error) => {
+      callback(error, null);
+    });
+};
+
+
+export const getWtssScEmergency = (req, callback) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit =
+    parseInt(req.query.limit) > 100 ? 100 : parseInt(req.query.limit) || 100;
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = limit;
+
+  const sqlSelect =
+  "SELECT "+
+  "simar.data_rs_new.propinsi AS kode, "+
+  "simar.data_rs_new.RUMAH_SAKIT AS namaRS, "+
+  "simar.wtsse.bulan AS bulan, "+
+  "simar.wtsse.tahun AS tahun, "+
+  "simar.wtsse.denumerator AS jumlahScEmergency, "+
+  "simar.wtsse.numerator AS jumlahScEmergencyKurangDari30Min "
+
+  const sqlFrom = "FROM simar.wtsse "+
+  "RIGHT JOIN simar.data_rs_new ON simar.wtsse.kode_rs = simar.data_rs_new.propinsi "
+
+  const sqlOrder = " ORDER BY simar.data_rs_new.propinsi ";
+
+  const sqlLimit = "LIMIT ? ";
+
+  const sqlOffSet = "OFFSET ?";
+
+  const sqlWhere = "WHERE  ";
+
+  const filter = [];
+  const sqlFilterValue = [];
+
+  const kode = req.query.kode || null;
+  const namaRS = req.query.namaRS || null;
+  const bulan = req.query.bulan || null;
+  const tahun = req.query.tahun || null;
+
+  if (kode != null) {
+    filter.push("simar.data_rs_new.propinsi = ? ");
+    sqlFilterValue.push(kode);
+  }
+
+  if (namaRS != null) {
+    filter.push("simar.data_rs_new.RUMAH_SAKIT like ? ");
+    sqlFilterValue.push("%".concat(namaRS).concat("%"));
+  }
+
+  if (bulan != null) {
+    filter.push("simar.wtsse.bulan = ? ");
+    sqlFilterValue.push(bulan);
+  }
+
+  if (tahun != null) {
+    filter.push("simar.wtsse.tahun = ? ");
+    sqlFilterValue.push(tahun);
+  }
+
+  sqlFilterValue.push(endIndex);
+  sqlFilterValue.push(startIndex);
+
+  let sqlFilter = "";
+  if (filter.length == 0) {
+    sqlFilter = "WHERE simar.data_rs_new.Propinsi IS NOT NULL AND  simar.wtsse.tahun > 2021 ";
   } else {
     filter.forEach((value, index) => {
       if (index == 0) {
